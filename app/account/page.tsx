@@ -37,7 +37,7 @@ export default function AccountPage() {
     }
 
     if (!session) {
-        redirect('/login?callbackUrl=/account');
+        redirect('/auth/login?callbackUrl=/account');
     }
 
     return (
