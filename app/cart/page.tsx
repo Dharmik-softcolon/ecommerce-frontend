@@ -105,11 +105,11 @@ export default function CartPage() {
                                 className="flex gap-4 p-4 bg-muted/30 rounded-lg border"
                             >
                                 {/* Image */}
-                                <Link href={`/products/${item.product.slug}`} className="flex-shrink-0">
+                                <Link href={`/products/${item.product?.slug || item.productId}`} className="flex-shrink-0">
                                     <div className="relative w-24 h-28 md:w-32 md:h-40 bg-muted rounded overflow-hidden">
                                         <Image
-                                            src={item.product.images[0]?.url || '/images/placeholder.svg'}
-                                            alt={item.product.name}
+                                            src={item.product?.images?.[0]?.url || '/images/placeholder.svg'}
+                                            alt={item.product?.name || 'Product'}
                                             fill
                                             className="object-cover"
                                             sizes="(max-width: 768px) 96px, 128px"
@@ -120,15 +120,15 @@ export default function CartPage() {
                                 {/* Details */}
                                 <div className="flex-1 min-w-0">
                                     <Link
-                                        href={`/products/${item.product.slug}`}
+                                        href={`/products/${item.product?.slug || item.productId}`}
                                         className="font-medium hover:text-primary transition-colors line-clamp-2"
                                     >
-                                        {item.product.name}
+                                        {item.product?.name || 'Product'}
                                     </Link>
                                     <p className="text-sm text-muted-foreground mt-1">
-                                        {item.variant.size && `Size: ${item.variant.size}`}
-                                        {item.variant.size && item.variant.color && ' | '}
-                                        {item.variant.color && `Color: ${item.variant.color}`}
+                                        {item.variant?.size && `Size: ${item.variant.size}`}
+                                        {item.variant?.size && item.variant?.color && ' | '}
+                                        {item.variant?.color && `Color: ${item.variant.color}`}
                                     </p>
                                     <p className="font-semibold mt-2">
                                         {formatPrice(item.price)}
@@ -211,12 +211,7 @@ export default function CartPage() {
                                     <span className="text-muted-foreground">Shipping</span>
                                     <span>{cart.shipping === 0 ? 'Free' : formatPrice(cart.shipping)}</span>
                                 </div>
-                                {cart.discount > 0 && (
-                                    <div className="flex justify-between text-sm text-green-600">
-                                        <span>Discount</span>
-                                        <span>-{formatPrice(cart.discount)}</span>
-                                    </div>
-                                )}
+                                {/* Discount placeholder - shown when promo codes are supported */}
                                 <div className="border-t pt-3 mt-3">
                                     <div className="flex justify-between font-semibold text-lg">
                                         <span>Total</span>

@@ -100,8 +100,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             {/* Image */}
                                             <div className="relative w-24 h-28 flex-shrink-0 bg-muted rounded overflow-hidden">
                                                 <Image
-                                                    src={item.product.images[0]?.url || '/images/placeholder.svg'}
-                                                    alt={item.product.name}
+                                                    src={item.product?.images?.[0]?.url || '/images/placeholder.svg'}
+                                                    alt={item.product?.name || 'Product'}
                                                     fill
                                                     className="object-cover"
                                                     sizes="96px"
@@ -111,16 +111,16 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                                             {/* Details */}
                                             <div className="flex-1 min-w-0">
                                                 <Link
-                                                    href={`/products/${item.product.slug}`}
+                                                    href={`/products/${item.product?.slug || item.productId}`}
                                                     onClick={onClose}
                                                     className="font-medium hover:text-primary transition-colors line-clamp-2"
                                                 >
-                                                    {item.product.name}
+                                                    {item.product?.name || 'Product'}
                                                 </Link>
                                                 <p className="text-sm text-muted-foreground mt-1">
-                                                    {item.variant.size && `Size: ${item.variant.size}`}
-                                                    {item.variant.size && item.variant.color && ' | '}
-                                                    {item.variant.color && `Color: ${item.variant.color}`}
+                                                    {item.variant?.size && `Size: ${item.variant.size}`}
+                                                    {item.variant?.size && item.variant?.color && ' | '}
+                                                    {item.variant?.color && `Color: ${item.variant.color}`}
                                                 </p>
                                                 <p className="font-semibold mt-2">
                                                     {formatPrice(item.price * item.quantity)}

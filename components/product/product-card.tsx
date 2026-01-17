@@ -51,14 +51,23 @@ export function ProductCard({ product, className, priority = false }: ProductCar
     const handleQuickAdd = async (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (product.variants && product.variants.length > 0) {
-            const defaultVariant = product.variants[0];
-            try {
-                await addToCart(product, defaultVariant, 1);
-                toast.success('Added to cart');
-            } catch (error) {
-                toast.error('Failed to add to cart');
-            }
+        
+        try {
+            // Use first variant if available, or create a default one
+            const defaultVariant = product.variants?.[0] || {
+                id: `default-${product.id}`,
+                name: 'Default',
+                sku: product.sku || `SKU-${product.id}`,
+                price: product.price,
+                stock: product.stock || 10,
+                size: 'M',
+                color: 'Default',
+            };
+            
+            await addToCart(product, defaultVariant, 1);
+            toast.success('Added to cart');
+        } catch (error) {
+            toast.error('Failed to add to cart');
         }
     };
 

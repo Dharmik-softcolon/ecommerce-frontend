@@ -17,11 +17,25 @@ interface ProductInfoProps {
 }
 
 export function ProductInfo({ product }: ProductInfoProps) {
+    // Create a default variant if none exist
+    const defaultVariant: ProductVariant = {
+        id: `default-${product.id}`,
+        _id: `default-${product.id}`,
+        name: 'Default',
+        sku: product.sku || `SKU-${product.id}`,
+        price: product.price,
+        stock: product.stock || 10,
+        size: 'M',
+        color: 'Default',
+    };
+    
+    const variants = product.variants?.length > 0 ? product.variants : [defaultVariant];
+    
     const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
-        product.variants[0] || null
+        variants[0] || null
     );
-    const [selectedSize, setSelectedSize] = useState<string | null>(null);
-    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const [selectedSize, setSelectedSize] = useState<string | null>(variants[0]?.size || null);
+    const [selectedColor, setSelectedColor] = useState<string | null>(variants[0]?.color || null);
     const [quantity, setQuantity] = useState(1);
 
     const { addItem: addToCart, isLoading: isAddingToCart } = useCartStore();
@@ -33,8 +47,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
         : 0;
 
     // Get unique sizes and colors
-    const sizes = [...new Set(product.variants.map(v => v.size).filter(Boolean))];
-    const colors = product.variants
+    const sizes = [...new Set(variants.map(v => v.size).filter(Boolean))];
+    const colors = variants
         .filter(v => v.color && v.colorHex)
         .reduce((acc, v) => {
             if (!acc.find(c => c.name === v.color)) {
@@ -46,7 +60,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
     const handleSizeSelect = (size: string) => {
         setSelectedSize(size);
         // Find variant with this size and selected color
-        const variant = product.variants.find(
+        const variant = variants.find(
             v => v.size === size && (!selectedColor || v.color === selectedColor)
         );
         if (variant) setSelectedVariant(variant);
@@ -55,25 +69,28 @@ export function ProductInfo({ product }: ProductInfoProps) {
     const handleColorSelect = (color: string) => {
         setSelectedColor(color);
         // Find variant with this color and selected size
-        const variant = product.variants.find(
+        const variant = variants.find(
             v => v.color === color && (!selectedSize || v.size === selectedSize)
         );
         if (variant) setSelectedVariant(variant);
     };
 
     const handleAddToCart = async () => {
-        if (!selectedVariant) {
+        // Use selected variant or the default one
+        const variantToAdd = selectedVariant || variants[0];
+        
+        if (!variantToAdd) {
             toast.error('Please select size and color');
             return;
         }
 
-        if (selectedVariant.stock < quantity) {
+        if (variantToAdd.stock < quantity) {
             toast.error('Not enough stock available');
             return;
         }
 
         try {
-            await addToCart(product, selectedVariant, quantity);
+            await addToCart(product, variantToAdd, quantity);
             toast.success('Added to cart');
         } catch (error) {
             toast.error('Failed to add to cart');
@@ -202,7 +219,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
                     </div>
                     <div className="flex flex-wrap gap-2">
                         {sizes.map((size) => {
-                            const variant = product.variants.find(
+                            const variant = variants.find(
                                 v => v.size === size && (!selectedColor || v.color === selectedColor)
                             );
                             const isOutOfStock = !variant || variant.stock === 0;

@@ -1,7 +1,7 @@
 // frontend/components/home/testimonials.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
@@ -11,18 +11,33 @@ const testimonials = images.testimonials;
 
 export function Testimonials() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-    const next = () => {
+    const next = useCallback(() => {
         setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    };
+    }, []);
 
     const prev = () => {
         setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
     };
 
+    useEffect(() => {
+        if (!isAutoPlaying) return;
+        const interval = setInterval(next, 5000);
+        return () => clearInterval(interval);
+    }, [isAutoPlaying, next]);
+
     return (
-        <section className="py-16 lg:py-24 bg-muted/30">
-            <div className="container-custom">
+        <section 
+            className="py-16 lg:py-24 bg-gradient-to-b from-muted/20 via-muted/40 to-muted/20 relative overflow-hidden"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
+        >
+            {/* Background decorations */}
+            <div className="absolute top-1/4 left-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+            
+            <div className="container-custom relative">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -30,7 +45,10 @@ export function Testimonials() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-12"
                 >
-                    <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    <span className="text-amber-600 text-sm font-semibold uppercase tracking-widest mb-3 block">
+                        Testimonials
+                    </span>
+                    <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
                         What Our Customers Say
                     </h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -45,23 +63,31 @@ export function Testimonials() {
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.5 }}
-                            className="bg-background p-8 md:p-12 shadow-lg"
+                            transition={{ duration: 0.4 }}
+                            className="bg-card border border-border/50 p-8 md:p-12 rounded-2xl shadow-lg relative"
                         >
-                            <Quote className="h-12 w-12 text-gold-400 mb-6" />
+                            {/* Quote Icon */}
+                            <div className="absolute -top-5 left-10">
+                                <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center shadow-lg">
+                                    <Quote className="h-6 w-6 text-white fill-white" />
+                                </div>
+                            </div>
 
-                            <div className="flex items-center gap-1 mb-6">
+                            {/* Rating Stars */}
+                            <div className="flex items-center gap-1 mb-6 mt-4">
                                 {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                                    <Star key={i} className="h-5 w-5 fill-gold-400 text-gold-400" />
+                                    <Star key={i} className="h-5 w-5 fill-amber-400 text-amber-400" />
                                 ))}
                             </div>
 
-                            <p className="text-lg md:text-xl text-foreground mb-8 leading-relaxed">
+                            {/* Content */}
+                            <p className="text-lg md:text-xl text-foreground mb-8 leading-relaxed italic">
                                 "{testimonials[currentIndex].content}"
                             </p>
 
+                            {/* Author */}
                             <div className="flex items-center gap-4">
-                                <div className="relative w-14 h-14 rounded-full overflow-hidden">
+                                <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-amber-400/30 shadow-md">
                                     <Image
                                         src={testimonials[currentIndex].avatar}
                                         alt={testimonials[currentIndex].name}
@@ -70,7 +96,7 @@ export function Testimonials() {
                                     />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold">{testimonials[currentIndex].name}</h4>
+                                    <h4 className="font-semibold text-foreground">{testimonials[currentIndex].name}</h4>
                                     <p className="text-sm text-muted-foreground">
                                         {testimonials[currentIndex].role}
                                     </p>
@@ -83,7 +109,7 @@ export function Testimonials() {
                     <div className="flex items-center justify-center gap-4 mt-8">
                         <button
                             onClick={prev}
-                            className="p-3 border border-border hover:bg-accent transition-colors"
+                            className="p-3 border border-border rounded-full hover:bg-muted hover:border-primary/50 transition-all duration-200"
                             aria-label="Previous testimonial"
                         >
                             <ChevronLeft className="h-5 w-5" />
@@ -94,8 +120,10 @@ export function Testimonials() {
                                 <button
                                     key={index}
                                     onClick={() => setCurrentIndex(index)}
-                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                        index === currentIndex ? 'w-6 bg-primary' : 'bg-primary/30'
+                                    className={`transition-all duration-300 rounded-full ${
+                                        index === currentIndex 
+                                            ? 'w-8 h-2 bg-primary' 
+                                            : 'w-2 h-2 bg-primary/30 hover:bg-primary/50'
                                     }`}
                                     aria-label={`Go to testimonial ${index + 1}`}
                                 />
@@ -104,7 +132,7 @@ export function Testimonials() {
 
                         <button
                             onClick={next}
-                            className="p-3 border border-border hover:bg-accent transition-colors"
+                            className="p-3 border border-border rounded-full hover:bg-muted hover:border-primary/50 transition-all duration-200"
                             aria-label="Next testimonial"
                         >
                             <ChevronRight className="h-5 w-5" />
