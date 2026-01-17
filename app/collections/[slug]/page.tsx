@@ -181,41 +181,49 @@ export default async function CollectionPage({ params, searchParams }: Collectio
     ];
 
     return (
-        <main className="pb-16">
+        <main className="pb-16 bg-background">
             {/* Hero Banner */}
-            <div
-                className="relative h-[40vh] bg-cover bg-center flex items-center justify-center"
+            <section
+                className="relative h-[35vh] sm:h-[40vh] lg:h-[45vh] bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: `url(${collection.image})` }}
             >
-                <div className="absolute inset-0 bg-black/40" />
-                <div className="relative text-center text-white">
-                    <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                {/* Simple Dark Overlay */}
+                <div className="absolute inset-0 bg-black/45" />
+                
+                {/* Content */}
+                <div className="relative text-center text-white px-4 max-w-4xl mx-auto">
+                    <span className="inline-block text-amber-400 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-3 sm:mb-4">
+                        Collection
+                    </span>
+                    <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
                         {collection.name}
                     </h1>
                     {collection.description && (
-                        <p className="text-lg text-white/80 max-w-2xl mx-auto px-4">
+                        <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
                             {collection.description}
                         </p>
                     )}
                 </div>
-            </div>
+            </section>
 
-            <div className="container-custom py-8">
+            <div className="container-custom py-6 sm:py-8">
                 <Breadcrumbs items={breadcrumbs} />
 
-                <div className="flex flex-col lg:flex-row gap-8 mt-8">
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 mt-6 sm:mt-8">
                     {/* Filters Sidebar */}
-                    <aside className="w-full lg:w-64 flex-shrink-0">
-                        <ProductFilters />
+                    <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0">
+                        <div className="lg:sticky lg:top-24">
+                            <ProductFilters />
+                        </div>
                     </aside>
 
                     {/* Products */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         {/* Toolbar */}
-                        <div className="flex items-center justify-between mb-6">
-                            <p className="text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-border/50">
+                            <p className="text-sm text-muted-foreground">
                                 {products.length > 0 
-                                    ? `Showing ${products.length} of ${pagination.total} products`
+                                    ? <>Showing <span className="font-medium text-foreground">{products.length}</span> of <span className="font-medium text-foreground">{pagination.total}</span> products</>
                                     : 'No products found'}
                             </p>
                             <ProductSort />
@@ -230,15 +238,28 @@ export default async function CollectionPage({ params, searchParams }: Collectio
 
                                 {/* Pagination */}
                                 {pagination.totalPages > 1 && (
-                                    <Pagination pagination={pagination} />
+                                    <div className="mt-12">
+                                        <Pagination pagination={pagination} />
+                                    </div>
                                 )}
                             </>
                         ) : (
-                            <div className="text-center py-16">
+                            <div className="text-center py-20 px-4">
+                                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted/50 flex items-center justify-center">
+                                    <svg className="w-10 h-10 text-muted-foreground/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                    </svg>
+                                </div>
                                 <h3 className="text-xl font-semibold mb-2">No Products Found</h3>
-                                <p className="text-muted-foreground mb-6">
+                                <p className="text-muted-foreground mb-8 max-w-md mx-auto">
                                     We're adding new products to this collection soon. Check back later or explore our other collections.
                                 </p>
+                                <a 
+                                    href="/collections"
+                                    className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                                >
+                                    Browse All Collections
+                                </a>
                             </div>
                         )}
                     </div>

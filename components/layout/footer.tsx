@@ -116,24 +116,35 @@ const socialLinks = [
 
 export function Footer() {
     return (
-        <footer className="bg-primary text-primary-foreground">
+        <footer className="bg-gradient-to-b from-primary to-primary/95 text-primary-foreground relative overflow-hidden">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTRoMnY0em0wLTZ2LTRoLTJ2NGgyem0tNiA2aC0ydi00aDJ2NHptMC02di00aC0ydjRoMnoiLz48L2c+PC9nPjwvc3ZnPg==')]" />
+            </div>
+            
             {/* Newsletter Section */}
-            <div className="border-b border-primary-foreground/10">
+            <div className="border-b border-primary-foreground/10 relative">
                 <div className="container-custom py-12 lg:py-16">
                     <div className="max-w-2xl mx-auto text-center">
-                        <h3 className="font-display text-2xl lg:text-3xl mb-4">
+                        <span className="text-amber-400 text-sm font-semibold uppercase tracking-widest mb-2 block">
+                            Stay Updated
+                        </span>
+                        <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl mb-4 font-bold">
                             Join Our Newsletter
                         </h3>
-                        <p className="text-primary-foreground/70 mb-6">
+                        <p className="text-primary-foreground/70 mb-8 text-base sm:text-lg">
                             Subscribe to receive updates, access to exclusive deals, and more.
                         </p>
-                        <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+                        <form className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
                             <Input
                                 type="email"
-                                placeholder="Enter your email"
-                                className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                                placeholder="Enter your email address"
+                                className="h-12 bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-amber-400/50 focus:ring-amber-400/20 rounded-lg"
                             />
-                            <Button variant="secondary" className="whitespace-nowrap">
+                            <Button 
+                                variant="secondary" 
+                                className="h-12 px-8 whitespace-nowrap bg-amber-500 hover:bg-amber-400 text-white border-0 font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                            >
                                 Subscribe
                             </Button>
                         </form>
@@ -142,42 +153,66 @@ export function Footer() {
             </div>
 
             {/* Main Footer Content */}
-            <div className="container-custom py-12 lg:py-16">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+            <div className="container-custom py-12 lg:py-16 relative">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12">
                     {/* Brand Column */}
                     <div className="col-span-2 lg:col-span-2">
-                        <Link href="/">
-                            <h2 className="font-display text-3xl font-bold mb-4">LUXE</h2>
+                        <Link href="/" className="inline-block group">
+                            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 group-hover:text-amber-400 transition-colors">
+                                LUXE
+                            </h2>
                         </Link>
-                        <p className="text-primary-foreground/70 mb-6 max-w-sm">
+                        <p className="text-primary-foreground/70 mb-6 max-w-sm text-sm sm:text-base leading-relaxed">
                             Premium clothing for the modern individual. Crafted with care,
                             designed for life.
                         </p>
                         <div className="space-y-3">
-                            <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
-                                <Phone className="h-4 w-4" />
+                            <a href="tel:+911800123456" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors group">
+                                <span className="p-2 bg-primary-foreground/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
+                                    <Phone className="h-4 w-4" />
+                                </span>
                                 <span>+91 1800 123 4567</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
-                                <Mail className="h-4 w-4" />
+                            </a>
+                            <a href="mailto:support@luxe.com" className="flex items-center gap-3 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors group">
+                                <span className="p-2 bg-primary-foreground/10 rounded-lg group-hover:bg-amber-500/20 transition-colors">
+                                    <Mail className="h-4 w-4" />
+                                </span>
                                 <span>support@luxe.com</span>
-                            </div>
+                            </a>
                             <div className="flex items-center gap-3 text-sm text-primary-foreground/70">
-                                <MapPin className="h-4 w-4" />
+                                <span className="p-2 bg-primary-foreground/10 rounded-lg">
+                                    <MapPin className="h-4 w-4" />
+                                </span>
                                 <span>Mumbai, India</span>
                             </div>
+                        </div>
+                        
+                        {/* Social Links - Desktop */}
+                        <div className="hidden lg:flex items-center gap-3 mt-8">
+                            {socialLinks.map((social) => (
+                                <a
+                                    key={social.name}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2.5 bg-primary-foreground/10 rounded-lg text-primary-foreground/70 hover:text-primary-foreground hover:bg-amber-500/20 transition-all duration-300"
+                                    aria-label={social.name}
+                                >
+                                    <social.icon className="h-5 w-5" />
+                                </a>
+                            ))}
                         </div>
                     </div>
 
                     {/* Shop Links */}
                     <div>
-                        <h4 className="font-semibold mb-4">Shop</h4>
+                        <h4 className="font-semibold mb-5 text-base">Shop</h4>
                         <ul className="space-y-3">
                             {footerLinks.shop.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                                        className="text-sm text-primary-foreground/70 hover:text-amber-400 transition-colors duration-200 hover:translate-x-1 inline-block"
                                     >
                                         {link.name}
                                     </Link>
@@ -188,13 +223,13 @@ export function Footer() {
 
                     {/* Company Links */}
                     <div>
-                        <h4 className="font-semibold mb-4">Company</h4>
+                        <h4 className="font-semibold mb-5 text-base">Company</h4>
                         <ul className="space-y-3">
                             {footerLinks.company.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                                        className="text-sm text-primary-foreground/70 hover:text-amber-400 transition-colors duration-200 hover:translate-x-1 inline-block"
                                     >
                                         {link.name}
                                     </Link>
@@ -205,13 +240,13 @@ export function Footer() {
 
                     {/* Help Links */}
                     <div>
-                        <h4 className="font-semibold mb-4">Help</h4>
+                        <h4 className="font-semibold mb-5 text-base">Help</h4>
                         <ul className="space-y-3">
                             {footerLinks.help.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                                        className="text-sm text-primary-foreground/70 hover:text-amber-400 transition-colors duration-200 hover:translate-x-1 inline-block"
                                     >
                                         {link.name}
                                     </Link>
@@ -222,13 +257,13 @@ export function Footer() {
 
                     {/* Legal Links */}
                     <div>
-                        <h4 className="font-semibold mb-4">Legal</h4>
+                        <h4 className="font-semibold mb-5 text-base">Legal</h4>
                         <ul className="space-y-3">
                             {footerLinks.legal.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                                        className="text-sm text-primary-foreground/70 hover:text-amber-400 transition-colors duration-200 hover:translate-x-1 inline-block"
                                     >
                                         {link.name}
                                     </Link>
@@ -240,22 +275,24 @@ export function Footer() {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-primary-foreground/10">
+            <div className="border-t border-primary-foreground/10 relative">
                 <div className="container-custom py-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className="text-sm text-primary-foreground/70">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                        {/* Copyright */}
+                        <p className="text-sm text-primary-foreground/60 order-3 lg:order-1">
                             © {new Date().getFullYear()} LUXE. All rights reserved.
                         </p>
 
-                        {/* Social Links */}
-                        <div className="flex items-center gap-4">
+                        {/* Social Links - Mobile */}
+                        <div className="flex lg:hidden items-center gap-3 order-1">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.name}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                                    className="p-2.5 bg-primary-foreground/10 rounded-lg text-primary-foreground/70 hover:text-primary-foreground hover:bg-amber-500/20 transition-all duration-300"
+                                    aria-label={social.name}
                                 >
                                     <social.icon className="h-5 w-5" />
                                 </a>
@@ -263,12 +300,13 @@ export function Footer() {
                         </div>
 
                         {/* Payment Methods */}
-                        <div className="flex items-center gap-3">
-                            <VisaIcon className="h-8 w-12" />
-                            <MastercardIcon className="h-8 w-12" />
-                            <GooglePayIcon className="h-8 w-12" />
-                            <PaytmIcon className="h-8 w-12" />
-                            <UPIIcon className="h-8 w-12" />
+                        <div className="flex items-center gap-2 sm:gap-3 order-2">
+                            <span className="text-xs text-primary-foreground/50 mr-2 hidden sm:inline">We Accept:</span>
+                            <VisaIcon className="h-7 w-11 sm:h-8 sm:w-12 rounded shadow-sm" />
+                            <MastercardIcon className="h-7 w-11 sm:h-8 sm:w-12 rounded shadow-sm" />
+                            <GooglePayIcon className="h-7 w-11 sm:h-8 sm:w-12 rounded shadow-sm" />
+                            <PaytmIcon className="h-7 w-11 sm:h-8 sm:w-12 rounded shadow-sm" />
+                            <UPIIcon className="h-7 w-11 sm:h-8 sm:w-12 rounded shadow-sm" />
                         </div>
                     </div>
                 </div>

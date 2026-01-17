@@ -38,22 +38,28 @@ export default async function CollectionsPage() {
     ];
 
     return (
-        <main className="pb-16">
+        <main className="pb-16 bg-background">
             {/* Hero Section */}
-            <div
-                className="relative h-[30vh] md:h-[40vh] bg-cover bg-center flex items-center justify-center"
+            <section
+                className="relative h-[30vh] sm:h-[35vh] lg:h-[40vh] bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: `url(${images.collections.newArrivals})` }}
             >
-                <div className="absolute inset-0 bg-black/50" />
-                <div className="relative text-center text-white">
-                    <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                {/* Simple Dark Overlay */}
+                <div className="absolute inset-0 bg-black/45" />
+                
+                {/* Content */}
+                <div className="relative text-center text-white px-4 max-w-4xl mx-auto">
+                    <span className="inline-block text-amber-400 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-3 sm:mb-4">
+                        Explore
+                    </span>
+                    <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight">
                         Our Collections
                     </h1>
-                    <p className="text-lg text-white/80 max-w-2xl mx-auto px-4">
+                    <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
                         Explore our carefully curated collections designed for every occasion
                     </p>
                 </div>
-            </div>
+            </section>
 
             <div className="container-custom py-8">
                 <Breadcrumbs items={breadcrumbs} />

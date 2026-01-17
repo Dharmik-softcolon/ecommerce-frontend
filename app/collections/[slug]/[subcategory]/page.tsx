@@ -105,22 +105,25 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
     const heroImage = categoryImageMap[params.slug] || images.placeholder.category;
 
     return (
-        <main className="pb-16">
+        <main className="pb-16 bg-background">
             {/* Hero Banner */}
-            <div
-                className="relative h-[30vh] md:h-[35vh] bg-cover bg-center flex items-center justify-center"
+            <section
+                className="relative h-[30vh] sm:h-[35vh] lg:h-[40vh] bg-cover bg-center flex items-center justify-center"
                 style={{ backgroundImage: `url(${heroImage})` }}
             >
-                <div className="absolute inset-0 bg-black/50" />
-                <div className="relative text-center text-white">
-                    <p className="text-sm uppercase tracking-widest mb-2 text-white/70">
+                {/* Simple Dark Overlay */}
+                <div className="absolute inset-0 bg-black/45" />
+                
+                {/* Content */}
+                <div className="relative text-center text-white px-4">
+                    <span className="inline-block text-amber-400 text-xs sm:text-sm font-semibold tracking-[0.2em] uppercase mb-2 sm:mb-3">
                         {categoryName}
-                    </p>
-                    <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
+                    </span>
+                    <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                         {subcategoryName}
                     </h1>
                 </div>
-            </div>
+            </section>
 
             <div className="container-custom py-8">
                 <Breadcrumbs items={breadcrumbs} />
