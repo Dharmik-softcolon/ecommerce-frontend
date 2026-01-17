@@ -1,9 +1,24 @@
+import slide1 from '../public/images/slider/slide1.jpg'
+import slide2 from '../public/images/slider/slide2.jpg'
+import slide3 from '../public/images/slider/slide3.jpg'
+import pch_img1 from '../public/images/placeholder/image1.jpg'
+import story1 from '../public/images/about/story1.jpg'
+import story2 from '../public/images/about/story2.jpg'
+import insta_img1 from '../public/images/instagarm/image1.jpg'
+import insta_img2 from '../public/images/instagarm/image2.jpg'
+import insta_img3 from '../public/images/instagarm/image3.jpg'
+import insta_img4 from '../public/images/instagarm/image4.jpg'
+import insta_img5 from '../public/images/instagarm/image5.jpg'
+import insta_img6 from '../public/images/instagarm/image6.jpg'
+
+
+
 export const images = {
     hero: {
         main: [
             {
                 id: 1,
-                src: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80',
+                src: slide1,
                 alt: 'Luxury Fashion Collection',
                 title: 'New Season Arrivals',
                 subtitle: 'Discover the latest trends',
@@ -15,7 +30,7 @@ export const images = {
             },
             {
                 id: 2,
-                src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=80',
+                src: slide2,
                 alt: 'Summer Collection',
                 title: 'Summer Collection 2024',
                 subtitle: 'Light fabrics, bold styles',
@@ -26,7 +41,7 @@ export const images = {
             },
             {
                 id: 3,
-                src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1920&q=80',
+                src: slide3,
                 alt: 'Exclusive Deals',
                 title: 'Up to 50% Off',
                 subtitle: 'Limited time offer',
@@ -203,24 +218,24 @@ export const images = {
         },
     ],
     instagram: [
-        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80',
-        'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&q=80',
-        'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80',
-        'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80',
-        'https://images.unsplash.com/photo-1485968579169-4f5d85e38d45?w=400&q=80',
-        'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80',
+        insta_img1,
+        insta_img2,
+        insta_img3,
+        insta_img4,
+        insta_img5,
+        insta_img6,
     ],
     about: {
         hero: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80',
         story: [
-            'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&q=80',
-            'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+            story1,
+            story2,
         ],
     },
     placeholder: {
         product: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80',
         avatar: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=200&q=80',
-        category: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
+        category: pch_img1,
         generic: '/images/placeholder.svg',
     },
 };
