@@ -17,20 +17,37 @@ interface SubcategoryPageProps {
 }
 
 const subcategoryNames: Record<string, string> = {
+    // Men's subcategories
     shirts: 'Shirts',
     trousers: 'Trousers',
     suits: 'Suits',
     jackets: 'Jackets',
-    accessories: 'Accessories',
+    // Women's subcategories
     dresses: 'Dresses',
     tops: 'Tops',
     bottoms: 'Bottoms',
     ethnic: 'Ethnic Wear',
+    // Accessories subcategories
+    bags: 'Bags',
+    belts: 'Belts',
+    watches: 'Watches',
+    sunglasses: 'Sunglasses',
+    wallets: 'Wallets',
+    // Footwear subcategories
+    sneakers: 'Sneakers',
+    formal: 'Formal Shoes',
+    casual: 'Casual Shoes',
+    sandals: 'Sandals',
+    boots: 'Boots',
+    // Shared
+    accessories: 'Accessories',
 };
 
 const categoryNames: Record<string, string> = {
     men: 'Men',
     women: 'Women',
+    accessories: 'Accessories',
+    footwear: 'Footwear',
 };
 
 export async function generateMetadata({ params }: SubcategoryPageProps): Promise<Metadata> {
@@ -79,11 +96,13 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
     ];
 
     // Get a relevant image for the category
-    const heroImage = params.slug === 'men' 
-        ? images.categories[0].image 
-        : params.slug === 'women' 
-            ? images.categories[1].image 
-            : images.placeholder.category;
+    const categoryImageMap: Record<string, string> = {
+        men: images.categories[0].image,
+        women: images.categories[1].image,
+        accessories: images.categories[2].image,
+        footwear: images.categories[3].image,
+    };
+    const heroImage = categoryImageMap[params.slug] || images.placeholder.category;
 
     return (
         <main className="pb-16">

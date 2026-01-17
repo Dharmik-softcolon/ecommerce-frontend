@@ -52,6 +52,30 @@ const navigation = [
         ],
     },
     {
+        name: 'Accessories',
+        href: '/collections/accessories',
+        submenu: [
+            { name: 'All Accessories', href: '/collections/accessories' },
+            { name: 'Bags', href: '/collections/accessories/bags' },
+            { name: 'Belts', href: '/collections/accessories/belts' },
+            { name: 'Watches', href: '/collections/accessories/watches' },
+            { name: 'Sunglasses', href: '/collections/accessories/sunglasses' },
+            { name: 'Wallets', href: '/collections/accessories/wallets' },
+        ],
+    },
+    {
+        name: 'Footwear',
+        href: '/collections/footwear',
+        submenu: [
+            { name: 'All Footwear', href: '/collections/footwear' },
+            { name: 'Sneakers', href: '/collections/footwear/sneakers' },
+            { name: 'Formal Shoes', href: '/collections/footwear/formal' },
+            { name: 'Casual Shoes', href: '/collections/footwear/casual' },
+            { name: 'Sandals', href: '/collections/footwear/sandals' },
+            { name: 'Boots', href: '/collections/footwear/boots' },
+        ],
+    },
+    {
         name: 'Collections',
         href: '/collections',
         submenu: [

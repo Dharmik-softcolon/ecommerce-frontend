@@ -10,6 +10,7 @@ import insta_img3 from '../public/images/instagarm/image3.jpg'
 import insta_img4 from '../public/images/instagarm/image4.jpg'
 import insta_img5 from '../public/images/instagarm/image5.jpg'
 import insta_img6 from '../public/images/instagarm/image6.jpg'
+import man1 from '../public/images/catagories/man.jpg'
 
 
 
@@ -36,7 +37,7 @@ export const images = {
                 subtitle: 'Light fabrics, bold styles',
                 description: 'Refresh your wardrobe with breathable essentials for the season.',
                 cta: 'Explore',
-                link: '/collections/summer-2024',
+                link: '/collections/summer',
                 align: 'center' as const,
             },
             {
@@ -57,39 +58,39 @@ export const images = {
             id: 'men',
             name: 'Men',
             slug: 'men',
-            image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&q=80',
+            image: `https://images.pexels.com/photos/5264953/pexels-photo-5264953.jpeg`,
             description: 'Premium menswear collection',
         },
         {
             id: 'women',
             name: 'Women',
             slug: 'women',
-            image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=800&q=80',
+            image: 'https://images.pexels.com/photos/8387810/pexels-photo-8387810.jpeg',
             description: "Elegant women's fashion",
         },
         {
             id: 'accessories',
             name: 'Accessories',
             slug: 'accessories',
-            image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800&q=80',
+            image: 'https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg',
             description: 'Complete your look',
         },
         {
             id: 'footwear',
             name: 'Footwear',
             slug: 'footwear',
-            image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',
+            image: 'https://images.pexels.com/photos/12252411/pexels-photo-12252411.jpeg',
             description: 'Step into style',
         },
     ],
     collections: {
-        summer2024: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80',
-        winter2024: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80',
-        spring2024: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+        summer2024: 'https://images.pexels.com/photos/29146340/pexels-photo-29146340.jpeg',
+        winter2024: 'https://images.pexels.com/photos/6816022/pexels-photo-6816022.jpeg',
+        spring2024: 'https://www.pexels.com/photo/close-up-shot-of-a-beautiful-woman-in-red-traditional-dress-holding-flowers-14863850/',
         autumn2024: 'https://images.unsplash.com/photo-1511401139252-f158d3209c17?w=800&q=80',
         limitedEdition: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
         newArrivals: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
-        bestsellers: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80',
+        bestsellers: 'https://images.pexels.com/photos/5868275/pexels-photo-5868275.jpeg',
         trending: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80',
         casual: 'https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800&q=80',
         formal: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80',
