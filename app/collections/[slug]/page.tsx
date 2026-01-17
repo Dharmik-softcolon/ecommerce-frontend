@@ -1,4 +1,3 @@
-// frontend/app/collections/[slug]/page.tsx
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { ProductGrid } from '@/components/product/product-grid';
