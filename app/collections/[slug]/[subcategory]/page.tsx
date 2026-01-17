@@ -1,6 +1,5 @@
 // frontend/app/collections/[slug]/[subcategory]/page.tsx
 import { Suspense } from 'react';
-import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { ProductGrid } from '@/components/product/product-grid';
 import { ProductFilters } from '@/components/product/product-filters';
@@ -77,12 +76,17 @@ export default async function SubcategoryPage({ params, searchParams }: Subcateg
     };
 
     let products: any[] = [];
-    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1 };
+    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1, hasNext: false, hasPrev: false };
 
     try {
         const result = await api.getProducts(filters);
         products = result.data;
-        pagination = result.pagination;
+        const p = result.pagination;
+        pagination = {
+            ...p,
+            hasNext: p.page < p.totalPages,
+            hasPrev: p.page > 1,
+        };
     } catch (error) {
         // Use empty array if API fails
         products = [];

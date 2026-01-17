@@ -32,12 +32,17 @@ export default async function SalePage({ searchParams }: SalePageProps) {
     };
 
     let products: any[] = [];
-    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1 };
+    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1, hasNext: false, hasPrev: false };
 
     try {
         const result = await api.getProducts(filters);
         products = result.data;
-        pagination = result.pagination;
+        const p = result.pagination;
+        pagination = {
+            ...p,
+            hasNext: p.page < p.totalPages,
+            hasPrev: p.page > 1,
+        };
     } catch (error) {
         // Use featured products as fallback
         products = images.featuredProducts.filter(p => p.compareAtPrice > p.price).map((p, index) => ({

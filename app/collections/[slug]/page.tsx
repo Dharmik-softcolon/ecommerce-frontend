@@ -1,3 +1,4 @@
+// frontend/app/collections/[slug]/page.tsx
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { ProductGrid } from '@/components/product/product-grid';
@@ -162,12 +163,17 @@ export default async function CollectionPage({ params, searchParams }: Collectio
     };
 
     let products: any[] = [];
-    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1 };
+    let pagination = { page: 1, limit: 12, total: 0, totalPages: 1, hasNext: false, hasPrev: false };
 
     try {
         const result = await api.getProducts(filters);
         products = result.data;
-        pagination = result.pagination;
+        const p = result.pagination;
+        pagination = {
+            ...p,
+            hasNext: p.page < p.totalPages,
+            hasPrev: p.page > 1,
+        };
     } catch {
         // Continue with empty products if API fails
         products = [];
