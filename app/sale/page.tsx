@@ -70,14 +70,17 @@ export default async function SalePage({ searchParams }: SalePageProps) {
             >
                 <div className="absolute inset-0 bg-gradient-to-r from-red-900/80 to-black/60" />
                 <div className="relative text-center text-white">
-                    <span className="inline-block bg-red-600 text-white px-4 py-1 text-sm font-semibold uppercase tracking-wider rounded-full mb-4">
-                        Limited Time
+                    <span className="inline-flex items-center gap-2 bg-gradient-to-r from-rose-600 via-rose-500 to-rose-600 text-white px-5 py-2 text-sm font-bold uppercase tracking-wider rounded-full mb-6 shadow-xl shadow-rose-500/30 animate-pulse">
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        Limited Time Offer
                     </span>
-                    <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-4">
+                    <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-shadow-lg">
                         SALE
                     </h1>
                     <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto px-4">
-                        Up to 50% off on selected items
+                        Up to <span className="font-bold text-yellow-300">50% OFF</span> on selected items
                     </p>
                 </div>
             </div>

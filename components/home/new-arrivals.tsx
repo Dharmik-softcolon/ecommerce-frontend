@@ -33,10 +33,13 @@ export function NewArrivals({ products }: NewArrivalsProps) {
                     className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 lg:mb-12"
                 >
                     <div>
-                        <div className="flex items-center gap-2 mb-3">
-                            <Sparkles className="h-5 w-5 text-amber-500" />
-                            <span className="text-amber-600 text-sm font-semibold uppercase tracking-widest">
-                                Just Dropped
+                        <div className="flex items-center gap-3 mb-4">
+                            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-500 text-white rounded-full shadow-lg shadow-emerald-500/25">
+                                <span className="relative flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                                </span>
+                                <span className="text-[11px] font-bold uppercase tracking-widest">Just Dropped</span>
                             </span>
                         </div>
                         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-2">
