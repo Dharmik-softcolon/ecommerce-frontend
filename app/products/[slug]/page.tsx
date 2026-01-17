@@ -45,7 +45,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const breadcrumbs = [
         { label: 'Home', href: '/' },
-        { label: product.category.name, href: `/collections/${product.category.slug}` },
+        { label: product.category?.name || 'Products', href: `/collections/${product.category?.slug || 'all'}` },
         { label: product.name, href: `/products/${product.slug}` },
     ];
 
@@ -75,16 +75,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <section className="container-custom mt-16">
                 <Suspense fallback={<RelatedProductsSkeleton />}>
                     <RelatedProducts
-                        categoryId={product.categoryId}
-                        categorySlug={product.category.slug}
-                        currentProductId={product.id}
+                        categoryId={product.categoryId || product.category?.id}
+                        categorySlug={product.category?.slug}
+                        currentProductId={product.id || product._id}
                     />
                 </Suspense>
             </section>
 
             {/* Recently Viewed */}
             <section className="container-custom mt-16">
-                <RecentlyViewed currentProductId={product.id} />
+                <RecentlyViewed currentProductId={product.id || product._id} />
             </section>
         </main>
     );
