@@ -1,6 +1,6 @@
 // frontend/app/page.tsx
 import { HeroSection } from '@/components/home/hero-section';
-import { CategoryGrid } from '@/components/home/category-grid';
+import { OffersSection } from '@/components/home/offers-section';
 import { FeaturedProducts } from '@/components/home/featured-products';
 import { CollectionBanner } from '@/components/home/collection-banner';
 import { NewArrivals } from '@/components/home/new-arrivals';
@@ -12,17 +12,16 @@ import { api } from '@/lib/api';
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function HomePage() {
-    const [featuredProducts, newArrivals, collections, categories] = await Promise.all([
+    const [featuredProducts, newArrivals, collections] = await Promise.all([
         api.getFeaturedProducts(),
         api.getNewArrivals(),
         api.getCollections(),
-        api.getCategories(),
     ]);
 
     return (
         <main>
             <HeroSection />
-            <CategoryGrid categories={categories} />
+            <OffersSection />
             <NewArrivals products={newArrivals} />
             <CollectionBanner collection={collections[0]} />
             <FeaturedProducts products={featuredProducts} />
