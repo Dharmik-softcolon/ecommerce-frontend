@@ -1,6 +1,7 @@
 // frontend/types/index.ts
 export interface Product {
     id: string;
+    _id?: string;
     name: string;
     slug: string;
     description: string;
@@ -19,6 +20,9 @@ export interface Product {
     isBestseller: boolean;
     stock: number;
     sku: string;
+    rating?: number;
+    reviewCount?: number;
+    averageRating?: number;
     createdAt: string;
     updatedAt: string;
 }
@@ -32,6 +36,7 @@ export interface ProductImage {
 
 export interface ProductVariant {
     id: string;
+    _id?: string;
     name: string;
     sku: string;
     price: number;

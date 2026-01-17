@@ -193,9 +193,9 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                             {product.variants
                                 .filter(v => v.colorHex)
                                 .slice(0, 5)
-                                .map((variant) => (
+                                .map((variant, index) => (
                                     <span
-                                        key={variant.id}
+                                        key={variant.id || `color-${index}`}
                                         className="w-5 h-5 rounded-full border-2 border-white shadow-md ring-1 ring-black/10"
                                         style={{ backgroundColor: variant.colorHex }}
                                         title={variant.color}
@@ -267,7 +267,7 @@ export function ProductCard({ product, className, priority = false }: ProductCar
                                 .slice(0, 6)
                                 .map((variant, idx) => (
                                     <span
-                                        key={variant.id}
+                                        key={variant.id || `size-${idx}`}
                                         className="text-xs text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded"
                                     >
                                         {variant.size}

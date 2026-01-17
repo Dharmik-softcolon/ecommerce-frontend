@@ -56,8 +56,8 @@ export function ProductGrid({ products, columns = 3 }: ProductGridProps) {
                         : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
             }`}
         >
-            {products.map((product) => (
-                <motion.div key={product.id} variants={itemVariants}>
+            {products.map((product, index) => (
+                <motion.div key={product.id || product._id || `product-${index}`} variants={itemVariants}>
                     <ProductCard product={product} />
                 </motion.div>
             ))}
