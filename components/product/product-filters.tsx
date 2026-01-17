@@ -1,7 +1,7 @@
 // frontend/components/product/product-filters.tsx (continued)
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Slider from '@radix-ui/react-slider';
@@ -10,7 +10,15 @@ import { Button } from '@/components/ui/button';
 import { cn, formatPrice } from '@/lib/utils';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
-const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+// Clothing sizes
+const clothingSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
+// Footwear sizes (UK sizes)
+const footwearSizes = ['UK 5', 'UK 6', 'UK 7', 'UK 8', 'UK 9', 'UK 10', 'UK 11', 'UK 12'];
+
+// Accessories sizes (one size or specific)
+const accessorySizes = ['One Size', 'S', 'M', 'L'];
+
 const colors = [
     { name: 'Black', hex: '#000000' },
     { name: 'White', hex: '#FFFFFF' },
@@ -20,9 +28,13 @@ const colors = [
     { name: 'Brown', hex: '#8b4513' },
     { name: 'Red', hex: '#dc2626' },
     { name: 'Blue', hex: '#2563eb' },
+    { name: 'Tan', hex: '#d2b48c' },
+    { name: 'Gold', hex: '#ffd700' },
+    { name: 'Silver', hex: '#c0c0c0' },
 ];
 
-const categories = [
+// Categories by collection type
+const clothingCategories = [
     { name: 'All', slug: '' },
     { name: 'Shirts', slug: 'shirts' },
     { name: 'T-Shirts', slug: 't-shirts' },
@@ -30,13 +42,70 @@ const categories = [
     { name: 'Jeans', slug: 'jeans' },
     { name: 'Jackets', slug: 'jackets' },
     { name: 'Suits', slug: 'suits' },
-    { name: 'Accessories', slug: 'accessories' },
+    { name: 'Dresses', slug: 'dresses' },
+    { name: 'Tops', slug: 'tops' },
 ];
+
+const footwearCategories = [
+    { name: 'All', slug: '' },
+    { name: 'Sneakers', slug: 'sneakers' },
+    { name: 'Formal Shoes', slug: 'formal' },
+    { name: 'Casual Shoes', slug: 'casual' },
+    { name: 'Sandals', slug: 'sandals' },
+    { name: 'Boots', slug: 'boots' },
+    { name: 'Loafers', slug: 'loafers' },
+    { name: 'Sports Shoes', slug: 'sports' },
+];
+
+const accessoryCategories = [
+    { name: 'All', slug: '' },
+    { name: 'Bags', slug: 'bags' },
+    { name: 'Belts', slug: 'belts' },
+    { name: 'Watches', slug: 'watches' },
+    { name: 'Sunglasses', slug: 'sunglasses' },
+    { name: 'Wallets', slug: 'wallets' },
+    { name: 'Jewelry', slug: 'jewelry' },
+    { name: 'Scarves', slug: 'scarves' },
+];
+
+// Helper to detect collection type from pathname
+function getCollectionType(pathname: string): 'footwear' | 'accessories' | 'clothing' {
+    if (pathname.includes('/footwear')) return 'footwear';
+    if (pathname.includes('/accessories')) return 'accessories';
+    return 'clothing';
+}
 
 export function ProductFilters() {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+
+    // Detect collection type and get appropriate filters
+    const collectionType = useMemo(() => getCollectionType(pathname), [pathname]);
+    
+    const sizes = useMemo(() => {
+        switch (collectionType) {
+            case 'footwear': return footwearSizes;
+            case 'accessories': return accessorySizes;
+            default: return clothingSizes;
+        }
+    }, [collectionType]);
+
+    const categories = useMemo(() => {
+        switch (collectionType) {
+            case 'footwear': return footwearCategories;
+            case 'accessories': return accessoryCategories;
+            default: return clothingCategories;
+        }
+    }, [collectionType]);
+
+    const sizeLabel = useMemo(() => {
+        switch (collectionType) {
+            case 'footwear': return 'Shoe Size';
+            case 'accessories': return 'Size';
+            default: return 'Size';
+        }
+    }, [collectionType]);
 
     const [priceRange, setPriceRange] = useState([
         Number(searchParams.get('priceMin')) || 0,
@@ -143,7 +212,7 @@ export function ProductFilters() {
                 <Accordion.Item value="sizes" className="border-b border-border pb-4">
                     <Accordion.Header>
                         <Accordion.Trigger className="flex w-full items-center justify-between py-2 font-medium text-sm [&[data-state=open]>svg]:rotate-180">
-                            Size
+                            {sizeLabel}
                             {selectedSizes.length > 0 && (
                                 <span className="ml-2 text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">
                   {selectedSizes.length}
@@ -153,12 +222,15 @@ export function ProductFilters() {
                         </Accordion.Trigger>
                     </Accordion.Header>
                     <Accordion.Content className="pt-3 data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden">
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className={cn(
+                            "grid gap-2",
+                            collectionType === 'footwear' ? 'grid-cols-4' : 'grid-cols-3'
+                        )}>
                             {sizes.map((size) => (
                                 <label
                                     key={size}
                                     className={cn(
-                                        'flex items-center justify-center h-10 border cursor-pointer transition-all text-sm',
+                                        'flex items-center justify-center h-10 border cursor-pointer transition-all text-sm px-1',
                                         selectedSizes.includes(size)
                                             ? 'border-primary bg-primary text-primary-foreground'
                                             : 'border-border hover:border-primary'
