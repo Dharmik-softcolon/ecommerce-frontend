@@ -15,6 +15,12 @@ const nextConfig = {
                 hostname: 'images.pexels.com',
             },
         ],
+        // Disable optimization to prevent timeout errors on Render
+        // Render's network can be slow/unreliable for external image fetches
+        unoptimized: true,
+        // Alternative: Use a custom loader if you want optimization
+        // loader: 'custom',
+        // loaderFile: './lib/image-loader.js',
     },
 };
 

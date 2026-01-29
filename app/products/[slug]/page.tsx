@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
             openGraph: {
                 title: product.name,
                 description: product.shortDescription,
-                images: [product.images[0]?.url || '/images/og-default.jpg'],
+                images: [product.images[0]?.url || '/images/og-default.svg'],
             },
         };
     } catch {

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         siteName: 'LUXE',
         images: [
             {
-                url: '/images/og-default.jpg',
+                url: '/images/og-default.svg',
                 width: 1200,
                 height: 630,
                 alt: 'LUXE - Premium Clothing',
