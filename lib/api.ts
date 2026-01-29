@@ -7,7 +7,8 @@ import { images } from './images';
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 // Check if we should use mock data (when backend is not available)
-const USE_MOCK_DATA = process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true' || true;
+// In production with a real backend, set NEXT_PUBLIC_USE_MOCK_DATA to "false"
+const USE_MOCK_DATA = process.env.NEXT_PUBLIC_USE_MOCK_DATA === 'true';
 
 // Product images organized by category
 const productImages = {
