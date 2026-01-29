@@ -38,9 +38,42 @@ export default function AccountWishlistPage() {
         redirect('/auth/login?callbackUrl=/account/wishlist');
     }
 
-    const handleAddToCart = async (item: any) => {
+    const handleAddToCart = async (item: typeof items[0]) => {
         try {
-            await addItem(item.id, 1);
+            // Create a product-like object for the cart
+            const product = {
+                id: item.id,
+                name: item.name,
+                slug: item.slug,
+                price: item.price,
+                compareAtPrice: item.compareAtPrice,
+                images: [{ id: '1', url: item.image, alt: item.name, position: 0 }],
+                description: '',
+                shortDescription: '',
+                category: { id: '1', name: 'Collection', slug: 'collection' },
+                categoryId: '1',
+                variants: [],
+                tags: [],
+                isNew: false,
+                isFeatured: false,
+                isBestseller: false,
+                stock: 10,
+                sku: `SKU-${item.id}`,
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            };
+
+            const defaultVariant = {
+                id: `default-${item.id}`,
+                name: 'Default',
+                sku: `SKU-${item.id}`,
+                price: item.price,
+                stock: 10,
+                size: 'M',
+                color: 'Default',
+            };
+
+            await addItem(product as any, defaultVariant, 1);
             removeItem(item.id);
             toast.success('Added to cart!');
         } catch (error) {

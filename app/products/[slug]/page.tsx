@@ -43,9 +43,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
         notFound();
     }
 
+    const categoryId = product.categoryId || product.category?.id || '';
+    const categorySlug = product.category?.slug;
+    const currentProductId = product.id || product._id || '';
+
     const breadcrumbs = [
         { label: 'Home', href: '/' },
-        { label: product.category?.name || 'Products', href: `/collections/${product.category?.slug || 'all'}` },
+        { label: product.category?.name || 'Products', href: `/collections/${categorySlug || 'all'}` },
         { label: product.name, href: `/products/${product.slug}` },
     ];
 
@@ -75,16 +79,16 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <section className="container-custom mt-16">
                 <Suspense fallback={<RelatedProductsSkeleton />}>
                     <RelatedProducts
-                        categoryId={product.categoryId || product.category?.id}
-                        categorySlug={product.category?.slug}
-                        currentProductId={product.id || product._id}
+                        categoryId={categoryId}
+                        categorySlug={categorySlug}
+                        currentProductId={currentProductId}
                     />
                 </Suspense>
             </section>
 
             {/* Recently Viewed */}
             <section className="container-custom mt-16">
-                <RecentlyViewed currentProductId={product.id || product._id} />
+                <RecentlyViewed currentProductId={currentProductId} />
             </section>
         </main>
     );
