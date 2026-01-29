@@ -1,4 +1,4 @@
-// frontend/app/page.tsx
+
 import { HeroSection } from '@/components/home/hero-section';
 import { OffersSection } from '@/components/home/offers-section';
 import { Bestsellers } from '@/components/home/bestsellers';
