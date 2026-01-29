@@ -93,6 +93,7 @@ export function Testimonials() {
                                         alt={testimonials[currentIndex].name}
                                         fill
                                         className="object-cover"
+                                        sizes="56px"
                                     />
                                 </div>
                                 <div>

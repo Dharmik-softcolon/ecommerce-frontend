@@ -7,13 +7,30 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { images } from '@/lib/images';
 
+function hashStringToUint32(input: string) {
+    // Small deterministic hash (FNV-1a-ish) for stable SSR/CSR values
+    let hash = 2166136261;
+    for (let i = 0; i < input.length; i++) {
+        hash ^= input.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
+}
+
+function stableNumber(seed: string, min: number, max: number) {
+    const range = Math.max(0, max - min + 1);
+    if (range === 0) return min;
+    const n = hashStringToUint32(seed) % range;
+    return min + n;
+}
+
 export function InstagramFeed() {
     const instagramPosts = images.instagram.map((image, index) => ({
         id: index + 1,
         image,
         url: 'https://instagram.com/luxe_clothing',
-        likes: Math.floor(Math.random() * 500) + 100,
-        comments: Math.floor(Math.random() * 50) + 5,
+        likes: stableNumber(`likes:${index}:${image}`, 100, 599),
+        comments: stableNumber(`comments:${index}:${image}`, 5, 54),
     }));
 
     return (
